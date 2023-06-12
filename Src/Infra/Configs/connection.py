@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
-from .base import Base
-from .config_database import config_database
+from Src.Infra.Configs.base import Base
+from Src.Infra.Configs.config_database import config_database
 
 
 class DBConnectionHandler:
