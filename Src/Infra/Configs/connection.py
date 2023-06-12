@@ -17,7 +17,10 @@ class DBConnectionHandler:
         engine_url = self.__engine.url
 
         if not database_exists(engine_url):
-            create_database()
+            print('sem banco de dados, criando database')
+            create_database(engine_url)
+
+            print('criando tabela')
             self.__create_table()
 
     def __create_table(self):

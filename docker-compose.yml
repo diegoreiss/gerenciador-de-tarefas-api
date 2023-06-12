@@ -1,8 +1,6 @@
-# Use root/example as user/password credentials
 version: '3.1'
 
 services:
-
   db:
     image: mysql:8.0.33
     restart: always
@@ -19,3 +17,9 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+  api:
+    build: ./docker
+    container_name: "fastapi-container"
+    ports:
+      - 8000:15400
