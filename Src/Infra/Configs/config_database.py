@@ -3,7 +3,6 @@ from configparser import ConfigParser
 
 
 def config_database(section: str = 'mysql') -> str:
-
     def get_string_connection(db: dict) -> str:
         pattern = 'dialect+driver://username:password@host:port/database'
 
@@ -12,8 +11,7 @@ def config_database(section: str = 'mysql') -> str:
 
         return pattern
 
-    root_path = os.path.dirname(os.getcwd())
-    full_file_path = os.path.join(root_path, 'database.ini')
+    full_file_path = os.path.join(os.getcwd(), 'database.ini')
 
     parser = ConfigParser()
     parser.read(full_file_path)
@@ -21,6 +19,6 @@ def config_database(section: str = 'mysql') -> str:
     if parser.has_section(section):
         params = parser.items(section)
 
-        db_params = { param[0]: param[1] for param in params }
+        db_params = {param[0]: param[1] for param in params}
 
         return get_string_connection(db_params)
