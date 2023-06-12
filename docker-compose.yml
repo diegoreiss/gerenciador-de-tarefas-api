@@ -3,6 +3,7 @@ version: '3.1'
 services:
   db:
     image: mysql:8.0.33
+    container_name: "db-container"
     restart: always
     environment:
       MYSQL_DATABASE: gerenciador_tarefas
@@ -14,12 +15,18 @@ services:
 
   adminer:
     image: adminer
+    container_name: "adminer-container"
     restart: always
     ports:
       - 8080:8080
+    depends_on:
+      - db
 
   api:
-    build: ./docker
+    build: .
+    image: fastapi:test
     container_name: "fastapi-container"
     ports:
       - 8000:15400
+    depends_on:
+      - db
