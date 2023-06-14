@@ -4,7 +4,7 @@ from Src.Api.Schemas import usuario_schema
 from Src.Api.Utils import password_utils
 from Src.Infra.Repository.usuario_repository import UsuarioRepository
 
-router = APIRouter(prefix='/usuario', tags=['usuarios'])
+router = APIRouter(prefix='/usuario', tags=['usuario'])
 
 
 @router.get('/', response_model=List[usuario_schema.UsuarioResponse])
