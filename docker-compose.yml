@@ -9,7 +9,7 @@ services:
       MYSQL_DATABASE: gerenciador_tarefas
       MYSQL_ROOT_PASSWORD: example
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       - ./db_scripts:/docker-entrypoint-initdb.d
 
@@ -18,15 +18,6 @@ services:
     container_name: "adminer-container"
     restart: always
     ports:
-      - 8080:8080
-    depends_on:
-      - db
-
-  api:
-    build: .
-    image: fastapi:test
-    container_name: "fastapi-container"
-    ports:
-      - 8000:15400
+      - "8080:8080"
     depends_on:
       - db
