@@ -33,4 +33,4 @@ def get_usuario(id: int):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Usuário com o id {id} inexistente.')
 
-    return Response(status_code=status.HTTP_201_CREATED)
+    return response
