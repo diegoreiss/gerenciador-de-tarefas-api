@@ -1,3 +1,5 @@
+SET NAMES utf8;
+
 DROP TABLE IF EXISTS funcao;
 CREATE TABLE IF NOT EXISTS funcao(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -80,3 +82,16 @@ CREATE TABLE IF NOT EXISTS comentario(
         FOREIGN KEY (id_tarefa)
         REFERENCES tarefa(id)
 );
+
+
+INSERT INTO
+    funcao(nome)
+VALUES
+    ('Aluno'), ('Professor');
+
+INSERT INTO
+    turma(nome)
+VALUES
+  ('Programação Orientada a Objetos'),
+  ('Desenvolvimento Destkop'),
+  ('CRUD');
