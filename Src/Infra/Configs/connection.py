@@ -2,14 +2,18 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 from Src.Infra.Configs.base import Base
-from Src.Infra.Configs.config_database import config_database
+from Src.Infra.Configs.config_database import ConfigDatabase
+
+from Src.Infra.Entities import (
+    funcao, usuario, turma,
+    aluno_turma, professor_turma, tarefa,
+    comentario
+)
 
 
 class DBConnectionHandler:
-    __CONNECTION_STRING = config_database()
-
     def __init__(self):
-        self.__engine = create_engine(DBConnectionHandler.__CONNECTION_STRING)
+        self.__engine = DBConnectionHandler.__create_engine()
         self.session = None
         self.__create_database()
 
@@ -25,6 +29,13 @@ class DBConnectionHandler:
 
     def __create_table(self):
         Base.metadata.create_all(bind=self.__engine, checkfirst=True)
+
+    @staticmethod
+    def __create_engine():
+        configuration = ConfigDatabase()
+        string_connection = configuration.get_string_connection()
+
+        return create_engine(string_connection, echo=True)
 
     def __enter__(self):
         session_maker = sessionmaker(bind=self.__engine)
