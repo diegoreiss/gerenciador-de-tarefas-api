@@ -1,10 +1,15 @@
-from sqlalchemy import Column, String, Integer, Text, ForeignKey
+from sqlalchemy import Column, String, Integer, Text, ForeignKeyConstraint
 from Src.Infra.Configs.base import Base
-from Src.Infra.Entities.funcao import Funcao
 
 
 class Usuario(Base):
-    __tablename__ = 'usuario'
+    __tablename__ = "usuario"
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ("funcao_id",), ["funcao.id"],
+            name="fk_usuario_funcao"
+        ),
+    )
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     nome = Column(String(40), nullable=False)
@@ -12,4 +17,4 @@ class Usuario(Base):
     nome_login = Column(String(60), unique=True, nullable=False)
     senha_hash = Column(Text, nullable=False)
 
-    funcao_id = Column(Integer, ForeignKey("funcao.id"), nullable=False)
+    funcao_id = Column(Integer, nullable=False)
