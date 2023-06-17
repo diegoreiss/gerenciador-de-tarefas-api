@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS tarefa(
     titulo VARCHAR(60) NOT NULL,
     descricao TEXT NULL,
     status ENUM("ativo", "inativo") DEFAULT ("ativo"),
-    usuario_autor_id INTEGER NOT NULL
+    usuario_autor_id INTEGER NOT NULL,
 
     CONSTRAINT fk_tarefa_usuario
         FOREIGN KEY (usuario_autor_id)
@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS comentario(
 
     CONSTRAINT fk_comentario_tarefa
         FOREIGN KEY (tarefa_id)
-        REFERENCES tarefa(id)
+        REFERENCES tarefa(id),
 
     CONSTRAINT fk_comentario_usuario
         FOREIGN KEY (usuario_id)
-        REFERENCES usuario(id),
+        REFERENCES usuario(id)
 );
 
 
