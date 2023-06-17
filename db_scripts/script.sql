@@ -27,27 +27,27 @@ CREATE TABLE IF NOT EXISTS tarefa(
     titulo VARCHAR(60) NOT NULL,
     descricao TEXT NULL,
     status ENUM("ativo", "inativo") DEFAULT ("ativo"),
-    turma_id INTEGER NOT NULL,
+    usuario_autor_id INTEGER NOT NULL
 
-    CONSTRAINT fk_tarefa_turma
-        FOREIGN KEY (turma_id)
-        REFERENCES turma(id)
+    CONSTRAINT fk_tarefa_usuario
+        FOREIGN KEY (usuario_autor_id)
+        REFERENCES usuario(id)
 );
 
 DROP TABLE IF EXISTS comentario;
 CREATE TABLE IF NOT EXISTS comentario(
     id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     texto TEXT NOT NULL,
-    usuario_id INTEGER NOT NULL,
     tarefa_id INTEGER NOT NULL,
-
-    CONSTRAINT fk_comentario_usuario
-        FOREIGN KEY (usuario_id)
-        REFERENCES usuario(id),
+    usuario_id INTEGER NOT NULL,
 
     CONSTRAINT fk_comentario_tarefa
         FOREIGN KEY (tarefa_id)
         REFERENCES tarefa(id)
+
+    CONSTRAINT fk_comentario_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuario(id),
 );
 
 
