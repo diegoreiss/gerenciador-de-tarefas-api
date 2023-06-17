@@ -20,41 +20,6 @@ CREATE TABLE IF NOT EXISTS usuario(
 	   REFERENCES funcao(id)
 );
 
-DROP TABLE IF EXISTS turma;
-CREATE TABLE IF NOT EXISTS turma(
-    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nome VARCHAR(60) NOT NULL
-);
-
-DROP TABLE IF EXISTS professor_turma;
-CREATE TABLE IF NOT EXISTS professor_turma(
-    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    usuario_professor_id INTEGER NOT NULL,
-    turma_id INTEGER NOT NULL,
-
-    CONSTRAINT fk_usuario_professor_turma
-        FOREIGN KEY (usuario_professor_id)
-        REFERENCES usuario(id),
-    
-    CONSTRAINT fk_turma_professor_turma
-        FOREIGN KEY (turma_id)
-        REFERENCES turma(id)
-);
-
-DROP TABLE IF EXISTS aluno_turma;
-CREATE TABLE IF NOT EXISTS aluno_turma(
-    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    usuario_aluno_id INTEGER NOT NULL,
-    turma_id INTEGER NOT NULL,
-
-    CONSTRAINT fk_usuario_aluno_turma
-        FOREIGN KEY (usuario_aluno_id)
-        REFERENCES usuario(id),
-    
-    CONSTRAINT fk_turma_aluno_turma
-        FOREIGN KEY (turma_id)
-        REFERENCES turma(id)
-);
 
 DROP TABLE IF EXISTS tarefa;
 CREATE TABLE IF NOT EXISTS tarefa(
@@ -89,11 +54,4 @@ CREATE TABLE IF NOT EXISTS comentario(
 INSERT INTO
     funcao(nome)
 VALUES
-    ('Aluno'), ('Professor');
-
-INSERT INTO
-    turma(nome)
-VALUES
-  ('Programação Orientada a Objetos'),
-  ('Desenvolvimento Destkop'),
-  ('CRUD');
+    ('aluno'), ('professor');
