@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS tarefa(
     titulo VARCHAR(60) NOT NULL,
     descricao TEXT NULL,
     status ENUM("ativo", "inativo") DEFAULT ("ativo"),
+    prioridade ENUM("alta", "media", "baixa") DEFAULT ("alta"),
+    anexo TEXT NULL,
     usuario_autor_id INTEGER NOT NULL,
 
     CONSTRAINT fk_tarefa_usuario
