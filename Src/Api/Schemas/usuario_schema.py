@@ -9,12 +9,8 @@ class Usuario(BaseModel):
     funcao_id: int
 
 
-class UsuarioResponse(BaseModel):
+class UsuarioResponse(Usuario):
     id: int
-    nome: str
-    sobrenome: str
-    nome_login: str
-    funcao_id: int
 
     class Config:
         orm_mode = True
