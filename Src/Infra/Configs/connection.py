@@ -3,12 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 from Src.Infra.Configs.base import Base
 from Src.Infra.Configs.config_database import ConfigDatabase
-
-from Src.Infra.Entities import (
-    funcao, usuario, turma,
-    aluno_turma, professor_turma, tarefa,
-    comentario
-)
+from Src.Infra.Entities import funcao, usuario, tarefa, comentario
 
 
 class DBConnectionHandler:
@@ -35,7 +30,7 @@ class DBConnectionHandler:
         configuration = ConfigDatabase()
         string_connection = configuration.get_string_connection()
 
-        return create_engine(string_connection, echo=True)
+        return create_engine(string_connection, echo=False)
 
     def __enter__(self):
         session_maker = sessionmaker(bind=self.__engine)
