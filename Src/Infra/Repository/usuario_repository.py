@@ -1,3 +1,4 @@
+from sqlalchemy.exc import IntegrityError
 from Src.Infra.Configs.connection import DBConnectionHandler
 from Src.Infra.Entities.usuario import Usuario
 
@@ -16,13 +17,17 @@ class UsuarioRepository:
     @staticmethod
     def insert(**kwargs) -> Usuario:
         with DBConnectionHandler() as db:
-            print('entrei')
-            data_insert = Usuario(**kwargs)
-            db.session.add(data_insert)
-            db.session.commit()
-            db.session.refresh(data_insert)
+            try:
+                data_insert = Usuario(**kwargs)
+                db.session.add(data_insert)
+                db.session.commit()
+                db.session.refresh(data_insert)
 
-            return data_insert
+                return data_insert
+            except IntegrityError as e:
+                raise e
+            except BaseException as e:
+                raise e
 
     @staticmethod
     def delete(id: int):
