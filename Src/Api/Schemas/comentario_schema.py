@@ -19,6 +19,10 @@ class ComentarioResponse(Comentario):
 
 class ComentarioViewResponse(BaseModel):
     id: int
+    usuario_id: int
     funcao: str
     nome_login: str
     texto: str
+
+    class Config:
+        orm_mode = True
