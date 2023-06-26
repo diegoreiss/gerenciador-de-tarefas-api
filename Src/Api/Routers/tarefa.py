@@ -10,6 +10,14 @@ from Src.Infra.Repository.tarefa_repository import TarefaRepository
 router = APIRouter(prefix='/tarefa', tags=['tarefa'])
 
 
+@router.get("/", response_model=List[tarefa_schema.TarefaResponse])
+def get_all_tarefas(usuario_atual=Depends(oauth2.get_usuario_atual)):
+    try:
+        return TarefaRepository.select_all()
+    except BaseException as e:
+        print(e)
+
+
 @router.get("/usuario/atual/", response_model=List[tarefa_schema.TarefaResponse])
 def get_tarefas_usuario_atual(usuario_atual=Depends(oauth2.get_usuario_atual)):
     try:
