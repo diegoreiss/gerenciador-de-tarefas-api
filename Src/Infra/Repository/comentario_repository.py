@@ -1,12 +1,20 @@
 from Src.Infra.Configs.connection import DBConnectionHandler
 from Src.Infra.Entities.comentario import Comentario
+from Src.Infra.Entities.usuario import Usuario
+from Src.Infra.Entities.funcao import Funcao
 
 
 class ComentarioRepository:
     @staticmethod
     def select_all_by_tarefa_id(tarefa_id: int):
         with DBConnectionHandler() as db:
-            return db.session.query(Comentario).filter(Comentario.tarefa_id == tarefa_id).all()
+            return (db.session
+                    .query(Comentario.id, Comentario.usuario_id, Funcao.nome, Usuario.nome_login, Comentario.texto)
+                    .join(Usuario, Comentario.usuario_id == Usuario.id)
+                    .join(Funcao, Usuario.funcao_id == Funcao.id)
+                    .filter(Comentario.tarefa_id == tarefa_id)
+                    .all()
+                    )
 
     @staticmethod
     def insert(**kwargs):
