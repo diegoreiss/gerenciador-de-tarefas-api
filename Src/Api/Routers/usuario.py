@@ -37,6 +37,9 @@ def create_usuario(usuario: usuario_schema.Usuario):
         if "Duplicate entry" in str(e):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                 detail=f"Nome de usuário '{usuario.nome_login}' ja em uso!!!")
+        elif "Can't connect" in str(e):
+            raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                                detail="Sem conexão com o banco de dados do sitema")
 
 
 @router.get('/{id}', response_model=usuario_schema.UsuarioResponse)
