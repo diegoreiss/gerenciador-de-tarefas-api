@@ -26,3 +26,7 @@ class ComentarioViewResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class ComentarioUpdate(BaseModel):
+    texto: str
