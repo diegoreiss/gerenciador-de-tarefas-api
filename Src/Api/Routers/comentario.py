@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, status, HTTPException, Depends
+from fastapi import APIRouter, status, HTTPException, Depends, Response
 from Src.Api.Schemas import comentario_schema
 from Src.Api.Utils import oauth2
 from Src.Infra.Repository.comentario_repository import ComentarioRepository
@@ -22,3 +22,26 @@ def create_comentario(comentario: comentario_schema.Comentario, usuario_atual=De
     new_comentario = ComentarioRepository.insert(**comentario.dict())
 
     return new_comentario
+
+
+@router.put("/{id}")
+def update_comentario(id: int, comentario: comentario_schema.ComentarioUpdate,
+                      usuario_atual=Depends(oauth2.get_usuario_atual)):
+    comentario_updated = ComentarioRepository.update(id, **comentario.dict())
+
+    if comentario_updated == 404:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"comentario com o id {id} inexistente")
+
+    return comentario_updated
+
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_comentario(id: int, usuario_atual=Depends(oauth2.get_usuario_atual)):
+    comentario = ComentarioRepository.delete(id)
+
+    if comentario == 404:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Comentario com id {id} inexistente.")
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
