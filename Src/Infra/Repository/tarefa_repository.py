@@ -1,8 +1,17 @@
+from sqlalchemy import func
 from Src.Infra.Configs.connection import DBConnectionHandler
 from Src.Infra.Entities.tarefa import Tarefa
+from Src.Infra.Entities.usuario import Usuario
 
 
 class TarefaRepository:
+    @staticmethod
+    def select_all_with_nome_autor():
+        with DBConnectionHandler() as db:
+            return (db.session.
+                    query(func.concat(Usuario.nome, ' ', Usuario.sobrenome), Tarefa)
+                    .join(Usuario, Usuario.id == Tarefa.usuario_autor_id).all())
+
     @staticmethod
     def select_all():
         with DBConnectionHandler() as db:
