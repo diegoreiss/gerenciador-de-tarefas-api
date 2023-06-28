@@ -19,6 +19,14 @@ class TarefaResponse(Tarefa):
         orm_mode = True
 
 
+class TarefaResponseAluno(BaseModel):
+    nome_completo_autor: str
+    tarefa: TarefaResponse
+
+    class Config:
+        orm_mode = True
+
+
 class TarefaUpdate(BaseModel):
     titulo: str
     descricao: str
